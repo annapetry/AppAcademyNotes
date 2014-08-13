@@ -10,7 +10,7 @@ class Board
     set_board
   end
   
-  def self.on_board?(pos)
+  def self.on_board? pos
     pos.all?{ |coord| (0..7).cover? coord }
   end
   
@@ -45,44 +45,39 @@ class Board
   
   def in_check?(color) 
     king = find_king(color)
-    
-    
     @board.flatten.compact.any? do |piece|
-      piece.color == color && piece.moves.any?{ |move| move.symbol == "King" }
+      piece.color == color && piece.moves_dir.any?{ |move| move.is_a?(King) }
     end
-    
-    
-    
         #
-    #     #
     # (0..7).each do |row|
     #   (0..7).each do |col|
     #     next if self[[row, col]].nil?
     #     next if self[[row, col]].color == color
     #
     #      opposite_piece_moves = self[[row, col]].moves_dir
+    #      #self[[row, col]]
     #     opposite_piece_moves.each do |pos|
     #       return true if pos == king
     #     end
     #   end
     # end
     # false
+    # can any opponant pcs get him?
   end
   
   def find_king(color)
     # (0..7).each do |row|
-    #   (0..7).each do |col|
-    #     position = [row, col]
-    #     if self[[row, col]].symbol == "King" && self[[row, col]].color == color
-    #       return [row, col]
-    #     end
-    #   end
-    # end
+#       (0..7).each do |col|
+#         position = [row, col]
+#         if self[[row, col]].symbol == "King" && self[[row, col]].color == color
+#           return [row, col]
+#         end
+#       end
+#     end
     
-    @board.flatten.compact.each do |piece| 
-      return piece if piece.symbol == "King" && piece.color == color
+    @board.flatten.compact.each do |piece|
+      return piece if piece.color == color && piece.is_a?(King)
     end
-    
   end
   
   def move(start, end_pos)
@@ -90,8 +85,11 @@ class Board
   end
 end
 
- p board = Board.new
- position = [0, 2]
- board[position].moves_dir
+board = Board.new
+position = [1, 0]
+p board[position].moves_dir
 
-  board.in_check?(:B)
+board.in_check?(:B)
+
+board.find_king(:W)
+

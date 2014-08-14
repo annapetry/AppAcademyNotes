@@ -9,73 +9,7 @@ class Piece
     @king = false
     @color, @position, @grid = color, position, board
   end
-  
-  def move(start, end_pos)
-    if @grid[start].nil?
-      raise InvalidMoveError.new ("No piece at START position!")
-      return
-    else
-      if valid_move_seq?(end_pos)
-        perform_moves(end_pos)
-      end
-    end
-    
-  end
-  
-  def render
-    @color
-  end
-  
-  # private
-  
-  FORWARD_BACKWARD = [
-    [1, 1],
-    [1, -1],
-    [-1, 1],
-    [-1, -1]
-  ]
-  
-  FORWARD = [
-    [1, 1],
-    [1, -1]
-  ]
-  
-  def can_promote?
-    if self.color == :W
-      return true if self.position[0] == 9
-    elsif self.color == :B
-      return true if self.position[0] == 0
-    end
-    false
-  end
-  
-  def deep_dup
-    duped = Board.new(false)
-    
-    @grid.flatten.compact.each do |piece|
-      new_piece = piece.class.new(piece.color, piece.position.dup, duped)
-      duped.board[piece.position[0]][piece.postion[1]] = new_piece
-    end
-    duped
-  end
-  
-  def is_a_king?
-    @king
-  end
-  
-  # should these be in board class?
-  
-  def perform_moves(start, end_pos)
-    
-    @grid[start].position = end_pos
-    @grid[end_pos] = @grid[start]
-    @grid[start] = nil
-    
-    
-    if can_promote?
-      @king = true
-    end
-  end
+
   
   def perform_moves!(*some_moves)
     if some_moves.count > 1
@@ -91,47 +25,7 @@ class Piece
       end
     end
   end
-  
-  def perform_slide(end_pos)
-    return false unless valid_slides.include?(end_pos)
-    true
-  end
-  
-  def perform_jump(end_pos)
-    return false unless valid_jumps.include?(end_pos)
-    true
-  end
-  
-  def valid_jumps
-    puts "in valid jumps"
-    direction = self.is_a_king? ? FORWARD_BACKWARD : FORWARD
-    
-    direction.each_with_object([]) do |(dx, dy), moves|
-      next_square = [position[0] + dx, position[1] + dy]
-      puts "jumps next square: #{next_square}"
-      
-      next unless Board.on_board?(next_square)
-      next if @grid[next_square].nil? || @grid[next_square].color == self.color
-      
-      direction.each do |(d_x, d_y)|
-        jumped_to = [next_square[0] + d_x, next_square[1] + d_y]
-        next unless Board.on_board?(jumped_to)
-        moves << jumped_to if @grid[jumped_to].nil? 
-      end
-    end # moves array returned here
-  end
-  
-  def valid_slides
-    direction = self.is_a_king? ? FORWARD_BACKWARD : FORWARD
-    puts "in valid_slides"
-    direction.each_with_object([]) do |(dx, dy), moves|
-      next_square = [position[0] + dx, position[1] + dy]
-      puts "next square: #{next_square}"
-      next unless Board.on_board?(next_square)
-      @grid[next_square].nil?
-        moves << next_square
-    end # moves array returned here
-  end
+
   
   def valid_moves_seq?(end_pos)
     begin

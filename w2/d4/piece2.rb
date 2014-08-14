@@ -1,4 +1,5 @@
 require './board'
+require 'debugger'
 
 class Piece
   
@@ -65,18 +66,22 @@ class Piece
   end
   
   def perform_moves!(*move_seq)
-    if move_seq.count == 1
-      unless perform_slide?(move_seq)
-        puts "valid_slide false"
-        perform_jump?(move_seq)
-      end
-    else
-      move_seq.each do |pos|
-        unless perform_jump?(pos)
-          raise InvalidMoveError.new("Can't complete move sequence")
-          return
+    begin
+      if move_seq.count == 1
+        unless perform_slide?(move_seq[0])
+          perform_jump?(move_seq)
+        end
+      else
+        move_seq.each do |pos|
+          puts "in jump seq"
+          unless perform_jump?(pos)
+            raise InvalidMoveError.new("Can't complete move sequence")
+            return
+          end
         end
       end
+    rescue InvalidMoveError => e
+      puts "#{e.message}"
     end
     
   end
@@ -101,18 +106,17 @@ class Piece
   
   def valid_slides
     direction = self.is_a_king? ? FORWARD_BACKWARD : FORWARD
-    puts "in valid_slides"
     direction.each_with_object([]) do |(dx, dy), moves|
       next_square = [position[0] + dx, position[1] + dy]
-      puts "next square: #{next_square}"
       next unless Board.on_board?(next_square)
       @grid[next_square].nil?
         moves << next_square
-        puts "moves in valid_slides #{moves}"
     end # moves array returned here
   end
-  
-
 
 end
+
+
+
+
 

@@ -61,6 +61,11 @@ class Board
 
     new_board
   end
-  
+ 
 end
+
+
+test_board = Board.new
+
+test_board.grid[0][0] = Piece.new(:b, [0, 0], test_board)
 

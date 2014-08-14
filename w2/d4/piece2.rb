@@ -10,24 +10,6 @@ class Piece
     @color, @position, @grid = color, position, board
   end
   
-  def move(start, end_pos)
-    if @grid[start].nil?
-      raise InvalidMoveError.new ("No piece at START position!")
-      return
-    else
-      if valid_move_seq?(end_pos)
-        perform_moves(end_pos)
-      end
-    end
-    
-  end
-  
-  def render
-    @color
-  end
-  
-  # private
-  
   FORWARD_BACKWARD = [
     [1, 1],
     [1, -1],
@@ -49,72 +31,68 @@ class Piece
     false
   end
   
-  def deep_dup
-    duped = Board.new(false)
-    
-    @grid.flatten.compact.each do |piece|
-      new_piece = piece.class.new(piece.color, piece.position.dup, duped)
-      duped.board[piece.position[0]][piece.postion[1]] = new_piece
-    end
-    duped
+  def inspect
+      { :pos => position,
+        :color => color}.inspect
   end
   
   def is_a_king?
     @king
   end
   
-  # should these be in board class?
-  
-  def perform_moves(start, end_pos)
-    
+  def update_pieces(start, end_pos)
     @grid[start].position = end_pos
     @grid[end_pos] = @grid[start]
     @grid[start] = nil
-    
     
     if can_promote?
       @king = true
     end
   end
   
-  def perform_moves!(*some_moves)
-    if some_moves.count > 1
-      some_moves.each do |move|
-        unless perform_jump(move)
-          raise InvalidMoveError.new("Don't even try it")
-          break
-        end
+  def perform_slide?(end_pos)
+    return false unless valid_slides.include?(end_pos)
+    update_pieces(position, end_pos)
+    true
+  end
+  
+  def perform_jump?(end_pos)
+    return false unless valid_jumps.include?(end_pos)
+    update_pieces(position, end_pos)
+    
+    # TODO: need to remove jumped pieces
+    true
+  end
+  
+  def perform_moves!(*move_seq)
+    if move_seq.count == 1
+      unless perform_slide?(move_seq)
+        puts "valid_slide false"
+        perform_jump?(move_seq)
       end
     else
-      unless perform_slide(end_pos) || perform_jump(end_pos)
-        raise InvalidMoveError.new("Don't even try it")
+      move_seq.each do |pos|
+        unless perform_jump?(pos)
+          raise InvalidMoveError.new("Can't complete move sequence")
+          return
+        end
       end
     end
+    
   end
   
-  def perform_slide(end_pos)
-    return false unless valid_slides.include?(end_pos)
-    true
-  end
-  
-  def perform_jump(end_pos)
-    return false unless valid_jumps.include?(end_pos)
-    true
-  end
   
   def valid_jumps
-    puts "in valid jumps"
     direction = self.is_a_king? ? FORWARD_BACKWARD : FORWARD
     
     direction.each_with_object([]) do |(dx, dy), moves|
       next_square = [position[0] + dx, position[1] + dy]
-      puts "jumps next square: #{next_square}"
       
       next unless Board.on_board?(next_square)
       next if @grid[next_square].nil? || @grid[next_square].color == self.color
       
       direction.each do |(d_x, d_y)|
-        jumped_to = [next_square[0] + d_x, next_square[1] + d_y]
+        jumped_to = [next_square[0] + d_x, next_square[1] + d_y]        
         next unless Board.on_board?(jumped_to)
         moves << jumped_to if @grid[jumped_to].nil? 
       end
@@ -130,22 +108,11 @@ class Piece
       next unless Board.on_board?(next_square)
       @grid[next_square].nil?
         moves << next_square
+        puts "moves in valid_slides #{moves}"
     end # moves array returned here
   end
   
-  def valid_moves_seq?(end_pos)
-    begin
-      duped_grid = @grid.deep_dup
-      duped_grid.perform_moves!(end_pos)
-    rescue InvalidMoveError => e
-      puts "#{e.message}"
-      return false
-    end
-    true
-  end
+
 
 end
 
-# board = Board.new
-#
-# board[[0, 0]] = Piece.new(:B, [0, 0], board)

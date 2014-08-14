@@ -1,10 +1,12 @@
-require './piece'
+require './piece2'
 
 class Board
   
-  def initialize(filled = true)
+  attr_accessor :grid
+  
+  def initialize(fill = true)
     # layout = LAYOUTS[size]
-    make_board
+    make_board(fill)
   end
   
   def self.on_board?(position)
@@ -21,21 +23,43 @@ class Board
     @grid[row][col] = value
   end
   
-  def render
-    @grid.each do |row|
-      puts "\n"
-      row.map do |piece|
-        # piece.nil? ? '.' : piece.render
-        print "."
-      end.join(" ")
+  def empty?(pos)
+    self[pos].nil?
+  end
+  
+  def move_piece(turn_color, from_pos, to_pos)
+    begin
+      raise InvalidMoveError.new("No piece to move!") if empty?(from_pos)
+
+      piece = self[from_pos]
+      if piece.color != turn_color
+        raise InvalidMoveError.new("Move your own piece")
+      elsif !piece.valid_slides.include?(to_pos) || !piece.valid_jumps.include?(to_pos)
+        raise InvalidMoveError.new("Piece can't move there")
+      end
+      piece.perform_moves!(to_pos)
+    rescue InvalidMoveError => e
+      puts "#{e.message}"
     end
   end
     
-  private
+    # need to rescue these exceptions in game class?
 
-  def make_board(filled)
+
+  def make_board(fill)
     @grid = Array.new(8) { Array.new(8) }
-    break unless filled
+  end
+  
+  
+  def deep_dup
+    new_board = Board.new(false)
+
+    @grid.flatten.compact.each do |piece|
+      new_piece = piece.class.new(piece.color, piece.position, new_board)
+      new_board.grid[piece.position[0]][piece.position[1]] = new_piece
+    end
+
+    new_board
   end
   
 end

@@ -5,7 +5,6 @@ class Board
   attr_accessor :grid
   
   def initialize(fill = true)
-    # layout = LAYOUTS[size]
     make_board(fill)
   end
   
@@ -23,6 +22,10 @@ class Board
     @grid[row][col] = value
   end
   
+  def team(color)
+     @grid.flatten.compact.select { |pc| pc.color == color }
+  end
+  
   def empty?(pos)
     self[pos].nil?
   end
@@ -33,24 +36,15 @@ class Board
     end
   end
   
-  # def move_piece(turn_color, from_pos, to_pos)
-  #   begin
-  #     raise InvalidMoveError.new("No piece to move!") if empty?(from_pos)
-  #
-  #     piece = self[from_pos]
-  #     if piece.color != turn_color
-  #       raise InvalidMoveError.new("Move your own piece")
-  #     elsif !piece.valid_slides.include?(to_pos) || !piece.valid_jumps.include?(to_pos)
-  #       raise InvalidMoveError.new("Piece can't move there")
-  #     end
-  #     piece.perform_moves!(to_pos)
-  #   rescue InvalidMoveError => e
-  #     puts "#{e.message}"
-  #   end
-  # end
-    
-    # need to rescue these exceptions in game class?
-
+  def move(color, from, to)
+    if @grid[from[0]][from[1]].nil?
+      raise InvalidMoveError.new("No piece to move")
+    elsif @grid[from[0]][from[1]].color != color
+      raise InvalidMoveError.new("Move your own piece!")
+    else
+      @grid[from[0]][from[1]].perform_moves(to)
+    end
+  end
 
   def make_board(fill)
     @grid = Array.new(8) { Array.new(8) }
@@ -102,6 +96,11 @@ class Board
         print "\n"
       end
     print "\n"
+  end
+  
+  def won?
+    return true if team(:W).empty? || team(:B).empty?
+    false
   end
 
 end

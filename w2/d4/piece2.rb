@@ -11,17 +11,17 @@ class Piece
     @color, @position, @grid = color, position, board
   end
   
-  FORWARD_BACKWARD = [
-    [1, 1],
-    [1, -1],
+  UP = [
     [-1, 1],
     [-1, -1]
   ]
   
-  FORWARD = [
+  DOWN = [
     [1, 1],
     [1, -1]
   ]
+
+  
   
   def can_promote?
     if self.color == :W
@@ -61,34 +61,52 @@ class Piece
     return false unless valid_jumps.include?(end_pos)
     update_pieces(position, end_pos)
     
-    # TODO: need to remove jumped pieces
+    if position[0] < end_pos[0]
+      to_remove_row = end_pos[0] - position[0]
+      to_remove_col = end_pos[1] - position[1]
+    else
+      to_remove_row = position[0] - end_pos[0]
+      to_remove_col = position[1] - end_pos[1]
+    end
+    puts "to remove: #{to_remove_row}, #{to_remove_col}"
+    @grid[[to_remove_row, to_remove_col]] = nil
+    
     true
   end
   
-  def perform_moves!(*move_seq)
-    begin
-      if move_seq.count == 1
-        unless perform_slide?(move_seq[0])
-          perform_jump?(move_seq)
-        end
-      else
-        move_seq.each do |pos|
-          puts "in jump seq"
-          unless perform_jump?(pos)
-            raise InvalidMoveError.new("Can't complete move sequence")
-            return
-          end
-        end
-      end
-    rescue InvalidMoveError => e
-      puts "#{e.message}"
+  def perform_moves(move_seq)
+    if valid_move_seq?(move_seq)
+      perform_moves!
+    else
+      raise InvalidMoveError.new("Can't do that!")
     end
-    
   end
   
+  def perform_moves!(move_seq)
+    if move_seq.count == 1
+      perform_slide?(move_seq[0]) || perform_jump?(move_seq)
+    else
+      move_seq.each do |pos|
+        puts "in jump seq"
+        unless perform_jump?(pos)
+          raise InvalidMoveError.new("Can't complete move sequence")
+        end
+      end
+    end
+  end
+  
+  def dirs
+    if self.is_a_king?
+      UP.concat(DOWN)
+    elsif self.color == :B
+      DOWN
+    else
+      UP
+    end
+  end
   
   def valid_jumps
-    direction = self.is_a_king? ? FORWARD_BACKWARD : FORWARD
+   direction = dirs
     
     direction.each_with_object([]) do |(dx, dy), moves|
       next_square = [position[0] + dx, position[1] + dy]
@@ -96,6 +114,7 @@ class Piece
       next unless Board.on_board?(next_square)
       next if @grid[next_square].nil? || @grid[next_square].color == self.color
       
+
       direction.each do |(d_x, d_y)|
         jumped_to = [next_square[0] + d_x, next_square[1] + d_y]        
         next unless Board.on_board?(jumped_to)
@@ -105,13 +124,28 @@ class Piece
   end
   
   def valid_slides
-    direction = self.is_a_king? ? FORWARD_BACKWARD : FORWARD
+    puts "in valid slides"
+    direction = dirs
     direction.each_with_object([]) do |(dx, dy), moves|
       next_square = [position[0] + dx, position[1] + dy]
+      puts "next square #{next_square}"
       next unless Board.on_board?(next_square)
-      @grid[next_square].nil?
+      if @grid[next_square].nil?
         moves << next_square
+      end
     end # moves array returned here
+  end
+  
+  def valid_move_seq?(seq)
+    begin
+      duped_grid = @grid.deep_dup
+      duped_grid[position].perform_moves!(seq)
+    
+    rescue InvalidMoveError => e
+      puts "#{e.message}"
+      return false
+    end
+    true
   end
 
 end

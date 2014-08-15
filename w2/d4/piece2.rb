@@ -82,7 +82,7 @@ class Piece
     true
   end
   
-  def perform_moves(move_seq)
+  def perform_moves(*move_seq)
     if valid_move_seq?(move_seq)
       perform_moves!(move_seq)
     else
@@ -99,7 +99,6 @@ class Piece
       end
     else
       move_seq.each do |pos|
-        puts "in jump seq"
         unless perform_jump?(pos)
           raise InvalidMoveError.new("Can't complete move sequence")
         end
@@ -109,7 +108,6 @@ class Piece
   
   def valid_jumps
    direction = dirs
-   puts  "direction: #{direction}"
     
     direction.each_with_object([]) do |(dx, dy), moves|
       next_square = [position[0] + dx, position[1] + dy]
@@ -125,7 +123,6 @@ class Piece
   
   def valid_slides
     direction = dirs
-    puts  "direction: #{direction}"
     
     direction.each_with_object([]) do |(dx, dy), moves|
       next_square = [position[0] + dx, position[1] + dy]

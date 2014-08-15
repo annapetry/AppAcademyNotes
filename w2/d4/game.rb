@@ -31,12 +31,16 @@ class Game
         from_pos = get_pos('From pos:')
         to_pos = get_pos('To pos:')
         game_board.move(color, from_pos, to_pos)
+     
+        if @color == :B
+          @color = :W
+        else
+          @color = :B
+        end
       rescue InvalidMoveError => e
         puts "Error: #{e.message}"
         retry
-      end 
-      
-      color == :B ? color = :W : color = :B
+      end
          
     end
   end

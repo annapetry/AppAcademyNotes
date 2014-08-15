@@ -23,6 +23,12 @@ p piece3.perform_jump?([4, 3])
 
 b.render
 
+piece4 = b[[5, 4]]
+
+p piece4.perform_jump?([3, 2])
+
+b.render
+
 # p piece2.perform_slide?([3, 2])
 # piece = b[[2, 1]]
 # piece.perform_moves([3, 2])

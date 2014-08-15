@@ -59,14 +59,15 @@ class Piece
   
   def perform_jump?(end_pos)
     return false unless valid_jumps.include?(end_pos)
+    start = position
     update_pieces(position, end_pos)
-    
-    if position[0] < end_pos[0]
+
+    if start[0] < end_pos[0]
       to_remove_row = end_pos[0] - 1
       to_remove_col = end_pos[1] - 1
     else
-      to_remove_row = position[0] - 1
-      to_remove_col = position[1] - 1
+      to_remove_row = start[0] - 1
+      to_remove_col = start[1] - 1
     end
     puts "to remove: #{to_remove_row}, #{to_remove_col}"
     @grid[[to_remove_row, to_remove_col]] = nil

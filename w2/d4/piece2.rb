@@ -62,11 +62,11 @@ class Piece
     update_pieces(position, end_pos)
     
     if position[0] < end_pos[0]
-      to_remove_row = end_pos[0] - position[0]
-      to_remove_col = end_pos[1] - position[1]
+      to_remove_row = end_pos[0] - 1
+      to_remove_col = end_pos[1] - 1
     else
-      to_remove_row = position[0] - end_pos[0]
-      to_remove_col = position[1] - end_pos[1]
+      to_remove_row = position[0] - 1
+      to_remove_col = position[1] - 1
     end
     puts "to remove: #{to_remove_row}, #{to_remove_col}"
     @grid[[to_remove_row, to_remove_col]] = nil

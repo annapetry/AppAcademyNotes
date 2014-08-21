@@ -1,41 +1,41 @@
-require './piece2'
+require 'colorize'
 
 class Board
-  
+
   attr_accessor :grid
-  
+
   def initialize(fill = true)
     make_board(fill)
   end
-  
+
   def self.on_board?(position)
     position.all? { |coord| (0..7).cover?(coord) }
   end
-  
+
   def [](position)
     row, col = position
     @grid[row][col]
   end
-  
+
   def []=(position, value)
     row, col = position
     @grid[row][col] = value
   end
-  
+
   def team(color)
      @grid.flatten.compact.select { |pc| pc.color == color }
   end
-  
+
   def empty?(pos)
     self[pos].nil?
   end
-  
+
   def to_s
     self.grid.each do |row|
       p row
     end
   end
-  
+
   def move(color, from, to)
     if @grid[from[0]][from[1]].nil?
       raise InvalidMoveError.new("No piece to move")
@@ -48,9 +48,9 @@ class Board
 
   def make_board(fill)
     @grid = Array.new(8) { Array.new(8) }
-    populate_board if fill  
+    populate_board if fill
   end
-  
+
   def populate_board
     [0, 2, 6].each do |row|
         [1, 3, 5, 7].each do |j|
@@ -61,7 +61,7 @@ class Board
           end
         end
       end
-    
+
     [1, 5, 7].each do |row|
       [0, 2, 4, 6].each do |j|
         if row == 1
@@ -72,7 +72,7 @@ class Board
       end
     end
   end
-  
+
   def deep_dup
     new_board = Board.new(false)
 
@@ -83,7 +83,7 @@ class Board
 
     new_board
   end
-  
+
   def render
     print "\n"
     (0..7).each { |x| print " #{x}" }
@@ -91,13 +91,39 @@ class Board
       @grid.each_index do |i|
         print "#{i} "
         (0..7).each do |j|
-          print (@grid[i][j] == nil) ? "_ " : "#{@grid[i][j].color} "
+          print (@grid[i][j] == nil) ? "_ " : render_piece(@grid[i][j])
         end
         print "\n"
       end
     print "\n"
   end
-  
+
+  # def render
+ #    str = " 01234567"
+ #
+ #    @rows.each_with_index do |row, index|
+ #      str << "\n#{index}"
+ #      str << row.map { |piece| render_piece(piece) }.join
+ #    end
+ #
+ #    str
+ #  end
+
+  # def print
+  #   puts render
+  # end
+
+
+  def render_piece(piece)
+    if piece.nil?
+      " "
+    elsif piece.color == :B
+      "◉ "
+    else
+      "◌ "
+    end
+  end
+
   def won?
     return true if team(:W).empty? || team(:B).empty?
     false

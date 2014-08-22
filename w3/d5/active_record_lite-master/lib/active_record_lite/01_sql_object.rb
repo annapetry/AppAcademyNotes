@@ -93,7 +93,7 @@ class SQLObject
     self.send(:id=, id)
   end
 
-  def initialize(params)
+  def initialize(params = {})
     params.each do |attr_name, value|
       sym = attr_name.to_sym
       if self.class.columns.include?(sym)
@@ -105,11 +105,26 @@ class SQLObject
   end
 
   def save
-    # ...
+    if self.id.nil?
+      insert
+    else
+      update
+    end
   end
 
   def update
-    # ...
+    col_values = self.class.columns.map do |attr_name|
+      "#{attr_name} = ?"
+    end.join(",")
+
+    DBConnection.execute(<<-SQL, *attribute_values, self.id)
+      UPDATE
+        #{self.class.table_name}
+      SET
+        #{col_values}
+      WHERE
+        id = ?
+    SQL
   end
 
   def attribute_values

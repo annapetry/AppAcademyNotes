@@ -1,0 +1,31 @@
+<% controller = params[:controller] %>
+
+<% action_url, submit_text = case controller %>
+<% when "users" %>
+  <% [users_url, "Sign up!"] %>
+<% when "sessions" %>
+  <% [session_url, "Sign in!"] %>
+<% end %>
+
+<form action="<%= action_url %>" method="POST">
+  
+  <input
+       name="authenticity_token"
+       type="hidden"
+       value="<%= form_authenticity_token %>">
+  
+  <label id="session_user_name">Username:</label>
+  <input 
+       type="text"
+       name="user[user_name]"
+       id="session_user_name">
+         
+  <br>
+  <label id="session_password">Password</label>
+  <input 
+       type="password"
+       name="user[password]"
+       id="session_password">
+  <br>    
+  <input type="submit" value="<%= submit_text %>">
+</form>

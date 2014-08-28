@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NinetyNineCats</title>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if current_user %>
+  <h2><%= current_user.user_name %></h2>
+  <%= button_to "Logout", session_url, :method => :delete %>
+<% else %>
+  <%= button_to "Log In", new_session_url, :method => :get %>
+  <%= button_to "Create account", new_user_url, :method => :get %>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

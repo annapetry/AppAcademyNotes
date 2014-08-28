@@ -1,0 +1,44 @@
+<h1><%= @cat.name %></h1>
+
+<table>
+  <% @cat.attributes.each do |attribute, value| %>
+    <% next if attribute =~ /_at$/ || attribute =~ /^id$/ %>
+    
+    <tr>
+      <td><%= attribute %></td>
+      <td><%= value %></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+
+<h2>Rental requests for <%= @cat.name %></h2>
+  <tr>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Status</th>
+    <th>Renter</th>
+  </tr>
+  <br>
+  <% @rentals.each do |rental_request| %>
+    <tr>
+      <td><%= rental_request.start_date %></td>
+      <td><%= rental_request.end_date %></td>
+      <td><%= rental_request.status %></td>
+      <td><%= rental_request.user.user_name %></td>
+      
+      <% if rental_request.pending? && current_user.id == @cat.user_id %>
+          <td><%= button_to "Approve!", cat_rental_request_approve_url(rental_request), :method => :patch %></td>
+          <td><%= button_to "Deny!", cat_rental_request_deny_url(rental_request), :method => :patch %></td>
+      <% end %>
+    </tr>
+    <br>
+  <% end %>
+
+<br>
+
+<%= link_to "Rent this cat!", "#{new_cat_rental_request_url}?cat_id=#{@cat.id}" %>
+
+<%= link_to "All Cats!", cats_url %>
+
+<%= link_to "Update profile", edit_cat_url(@cat) if current_user.id == @cat.user_id %>

@@ -1,0 +1,4 @@
+<h2>Edit <%= @track.name %></h2>
+
+<%= render "shared/track_form",
+      action: track_url(@track), track: @track, method: "patch" %>

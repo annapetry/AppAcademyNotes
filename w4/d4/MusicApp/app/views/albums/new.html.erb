@@ -1,0 +1,4 @@
+<h2>Add an Album</h2>
+
+<%= render "shared/album_form", action: band_albums_url(@band),
+       method: "post", album: @album, band: @band %>

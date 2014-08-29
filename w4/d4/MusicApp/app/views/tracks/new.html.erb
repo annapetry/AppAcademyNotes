@@ -1,0 +1,5 @@
+<h2>Add a Track</h2>
+
+<%= render "shared/track_form",
+      action: album_tracks_url(@album), track: @track, album: @album,
+      method: "post" %>

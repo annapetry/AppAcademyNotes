@@ -1,0 +1,28 @@
+<ul>
+  <% if user%>
+    <% user.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  <% end%>
+</ul>
+
+<form action="<%= action %>" method="POST">
+
+  <%= auth_token %>
+
+  <label for="username">Username
+  <input
+    type="text"
+    name="user[username]"
+    value="<%= user.username %>">
+  </label>
+
+  <label for="password">Password
+  <input
+    type="password"
+    name="user[password]">
+  </label>
+
+  <button>Submit</button>
+
+</form>

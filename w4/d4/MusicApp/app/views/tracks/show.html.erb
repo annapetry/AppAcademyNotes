@@ -1,0 +1,24 @@
+<h2><%= @track.name %></h2>
+<h4>Album Name: <%= @track.album.name %></h4>
+
+<h5>Track Type: <%= @track.track_type.capitalize %></h5>
+
+
+
+<h3>Lyrics</h3>
+<div class="lyrics"><%= @track.lyrics %></div>
+
+
+
+
+<br>
+<%= button_to "Edit #{@track.name}'s Info",
+        edit_track_url(@track), :method => :get %>
+<br>
+
+<%= button_to "Delete #{@track.name}", track_url(@track), :method => :delete %>
+<br>
+
+<%= link_to "Back to #{@track.album.name}",
+        album_url(@track.album), :method => :get %>
+

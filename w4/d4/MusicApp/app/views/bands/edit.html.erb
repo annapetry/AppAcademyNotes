@@ -1,0 +1,4 @@
+<h2>Edit <%= @band.name %></h2>
+
+<%= render "shared/band_form", action: band_url(@band), band: @band,
+      method: "patch" %>

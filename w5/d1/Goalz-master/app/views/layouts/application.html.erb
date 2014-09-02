@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Goalz</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  
+  <% unless flash[:errors].nil? %>
+    <ul>
+      <%= flash[:errors].join("<br>") %>
+    <ul>
+  <% end %>
+  
+  <% if current_user %>
+    Hello, <%= current_user.username %>
+    <%= button_to "Log Out", session_url, method: :delete %>
+  <% end %>
+
+<%= yield %>
+
+</body>
+</html>

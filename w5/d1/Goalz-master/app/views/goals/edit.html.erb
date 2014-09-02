@@ -1,0 +1,39 @@
+<h1>Edit Goal</h1>
+
+<form action="<%= goal_url(@goal) %>" method="POST" accept-charset="utf-8">
+  <input type="hidden" name="_method" value="patch" id="_method">
+  
+  <label for="goal">Goal:</label>
+  <input 
+    type="text" 
+    name="goal[body]" 
+    value="<%= @goal.body %>" 
+    id="goal">
+    
+  <input 
+    type="hidden" 
+    name="goal[secret]" 
+    value="true" 
+    id="goal[secret]">
+    
+  <label for="public">Public?</label>
+  <input 
+    type="checkbox" 
+    name="goal[secret]" 
+    value="false" 
+    id="public" <%= "checked" if @goal.secret == false %>>
+  
+    <input 
+      type="hidden" 
+      name="goal[complete]"
+       value="false" 
+       id="goal[complete]">
+       
+  <label for="completed">Completed?</label>
+  <input 
+    type="checkbox" 
+    name="goal[complete]" 
+    value="true" id="completed" <%= "checked" if @goal.complete == false %>>
+    
+  <p><input type="submit" value="Update Goal"></p>
+</form>

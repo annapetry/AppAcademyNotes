@@ -1,0 +1,17 @@
+<h1>All Goals</h1>
+<ul>
+  <% @goals.each do |goal| %>
+    <% next if goal.secret && goal.user != current_user %>
+    <li>
+      <%= goal.user.username %>'s Goal:
+      <%= goal.body %>, 
+      Completed?: <%= goal.complete.to_s %>,
+      Private?:   <%= goal.secret.to_s %> 
+    <%= button_to "Delete Goal", goal_url(goal), method: :delete %>  
+    <%= button_to "Edit Goal", edit_goal_url(goal), method: :get %>
+    <li>
+  <% end %>
+</ul>
+
+<%= button_to "Create Goal", new_goal_url, method: :get %>
+    

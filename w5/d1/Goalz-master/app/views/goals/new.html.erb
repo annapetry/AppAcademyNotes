@@ -1,0 +1,14 @@
+<h1>Add Goal</h1>
+
+<form action="<%= goals_url %>" method="POST" accept-charset="utf-8">
+  <input type="hidden" name="_method" value="post" id="_method">
+  
+  <label for="goal">Goal:</label><input type="text" name="goal[body]" value="" id="goal">
+  <input type="hidden" name="goal[secret]" value="true" id="goal[secret]">
+  <label for="public">Public?</label><input type="checkbox" name="goal[secret]" value="false" id="public" <%= "checked" if @goal.secret == false %>>
+  
+<input type="hidden" name="goal[complete]" value="false" id="goal[complete]">
+<label for="completed">Completed?</label><input type="checkbox" name="goal[complete]" value="true" id="completed" <%= "checked" if @goal.complete == false %>>
+    
+  <p><input type="submit" value="Add Goal"></p>
+</form>

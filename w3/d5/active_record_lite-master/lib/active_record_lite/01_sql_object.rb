@@ -9,7 +9,7 @@ class SQLObject
       SELECT
         *
       FROM
-        "#{table_name}"
+        #{table_name}
     SQL
 
     cols[0].map do |var|

@@ -1,0 +1,141 @@
+html {
+  background: #f0f0f0;
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin:0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  font-family: arial;
+}
+
+/*.outer-nav {
+  background: red;
+  border-bottom: 3px black solid;
+  padding: 0px;
+  margin: 0px;
+  color: white;
+}*/
+
+header {
+  background: red;
+  color: white;
+  border-bottom: 3px black solid;
+}
+
+.company-name {
+  float: left;
+  padding: 15px;
+  border-left: 3px black solid;
+}
+
+.nav-options {
+  float: right;
+}
+
+.nav-options li {
+  display: inline-block;
+  float: left;
+  padding: 15px;
+  border-right: 3px black solid;
+}
+
+.nav-options li:first-child {
+  border-left: 3px black solid;
+}
+
+.nav-options li:hover {
+  background-color: black;
+}
+
+#content {
+  border: 3px #C9C9C9 solid;
+  border-top: none;
+  border-bottom: none;
+  background: white;
+  padding: 25px 0;
+
+}
+
+.container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+/*  margin-top: -30;
+  border: 3px #C9C9C9 solid;
+  border-bottom: none;
+  border-top: none;
+  position: relative;
+  box-sizing: border-box;
+  background: white;*/
+}
+
+/*.nav-options {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}*/
+
+.sidebar {
+  float: left;
+  width: 30%;
+  padding: 0 20px;
+  border-right: 3px #C9C9C9 solid;
+}
+
+.article {
+  float: left;
+  width: 70%;
+  padding: 0 35px;
+}
+
+footer {
+  clear: both;
+  margin: 0;
+  background-color: lightgrey;
+  border: 3px #909090 solid;
+}
+
+footer * {
+  color: #909090;
+}
+
+footer p {
+  margin: 0;
+  padding: 20px;
+  float: left;
+  display: inline;
+}
+
+footer ul{
+    list-style-type: none;
+      float: right;
+}
+
+footer ul li {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 20px;
+}
+
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */

@@ -1,0 +1,135 @@
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  font-family: helvetica;
+}
+
+#container {
+   min-height:100%;
+   position:relative;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height:100%;
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin:0;
+  display: inline;
+}
+
+input {
+  margin: 0;
+  font-size: 1em;
+}
+
+.sign-in {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  padding: 8px 14px;
+  background: #4477F5;
+  border: 1px #E5E5E5 solid;
+  border-radius: 3px;
+}
+
+.buttons button {
+  margin: 0;
+  font-weight: bold;
+  padding: 7px;
+  background: #F0F0F0;
+  border: 1px #E5E5E5 solid;
+  margin: 15px 8px;
+  border-radius: 2px;
+}
+
+header {
+  display: block;
+  padding-right: 23px;
+}
+
+li {
+  padding: 17px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.8em;
+  color: #555555;
+}
+
+.nav {
+  float: right;
+}
+
+.nav li {
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+.logo, input {
+  width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  clear: both;
+}
+
+.logo {
+  margin: 20px auto;
+  width: 500px;
+  transition: 5s;
+}
+
+.logo:hover {
+  -webkit-perspective: 500px;
+  -webkit-transform: rotate3d(5,45,0, 360deg);
+}
+
+
+.icon {
+  width: 30px;
+}
+
+.buttons {
+  width: 238px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.business-links {
+  float: left;
+}
+
+.info-links {
+  float: right;
+}
+
+
+
+footer {
+  border: 1px #E5E5E5 solid;
+  position:absolute;
+  bottom:0;
+  width:100%;  /* Height of the footer */
+  background:#F0F0F0;
+  padding-left: 17px;
+  padding-right: 17px;
+}
+
+
+
+

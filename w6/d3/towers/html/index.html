@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Towers of Hanoi</title>
+    <link rel="stylesheet" type="text/css" href="../css/th.css">
+  </head>
+  <body>
+    <h1 class="container"> Towers of Hanoi</h1>
+    
+    <div class= "container clearfix">
+      
+      <!-- <div class="tower tower1">
+        <div class="disc"></div>
+        <div class="disc"></div>
+        <div class="disc"></div>
+      </div>
+
+      <div class="tower tower2">
+        <div class="disc"></div>
+        <div class="disc"></div>
+        <div class="disc"></div>
+      </div>
+
+      <div class="tower tower3">
+        <div class="disc"></div>
+        <div class="disc"></div>
+        <div class="disc"></div>
+      </div> -->
+      <!-- <div class="pile clearfix" data-pos="0">
+        <div class="disc" data-pos="[0, 0]"></div>
+        <div class="disc" data-pos="[1, 0]"></div>
+        <div class="disc" data-pos="[2, 0]"></div>
+      </div>
+
+      <div class="pile clearfix" data-pos="1">
+        <div class="disc" data-pos="[0, 1]"></div>
+        <div class="disc" data-pos="[1, 1]"></div>
+        <div class="disc" data-pos="[2, 1]"></div>
+      </div>
+
+      <div class="pile clearfix" data-pos="2">
+        <div class="disc" data-pos="[0, 2]"></div>
+        <div class="disc" data-pos="[1, 2]"></div>
+        <div class="disc" data-pos="[2, 2]"></div>
+      </div> -->
+    </div>
+
+    <script src="../js/jquery-2.1.1.js"></script>
+    <!-- Whackjobs at GithubPages don't understand symlinks... -->
+    <script src="../js/towers-core.js"></script>
+    <script src="../js/towers.js"></script>
+
+    <script>
+    $(function () {
+      var game = new Hanoi.Game();
+      var $el = $("div.container");
+      var tower = new Hanoi.Towers(game, $el);
+      tower.play();
+    });
+    </script>
+    
+  </body>
+</html>

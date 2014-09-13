@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="./thumbnails.css" rel="stylesheet" type="text/css">
+    <script src="./jquery-2.1.1.js"></script>
+    <script src="./thumbnails.js"></script>
+    
+    <title>My Cool Website</title>
+  </head>
+
+  <body>
+  <div class="thumbnails">
+    <div class="items">
+      <img class="active" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRu5ttpD_RYdDu3cCta60Nq8zA8oq6dvgE_svdzoP2wU59r0wCpa_lMeA">
+      <img src="https://www.math.ku.edu/~wsanders/Kittens/new%20kittens/Cute-little-kittens-550x365.jpg">
+      <img src="http://ryanpurcell.net/wp-content/uploads/2014/04/Cuddling-Kittens-002.jpg">
+      <img src="http://37.media.tumblr.com/fd3f1b490b6b8cb44de1166cb975b9a5/tumblr_muja80rzC01qi4ucgo1_1280.jpg">
+      <img src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Kittens-in-slippers.jpg">
+      <img src="http://cdn1.vox-cdn.com/imported_assets/2236663/kitten.jpg">
+    </div>
+  </div>  
+  
+  
+  <script>
+    $(function() {
+      $('.thumbnails').thumbnail();
+    })
+  </script>
+  </body>
+</html>

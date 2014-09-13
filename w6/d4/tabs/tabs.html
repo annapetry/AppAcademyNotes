@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="./tabs.css" rel="stylesheet" type="text/css">
+    <script src="./jquery-2.1.1.js"></script>
+    <script src="./tabs.js"></script>
+    
+    <title>My Cool Website</title>
+  </head>
+
+  <body>
+    <ul class='tabs' data-content-tabs="#content-tabs">
+      <li>
+        <a class="active" href="#shar-pei">Shar Pei</a>
+      </li>
+      <li>
+        <a href="#chow-chow">Chow Chow</a>
+      </li>
+      <li>
+        <a href="#whippet">Whippet</a>
+      </li>
+    </ul>
+    
+      <div id="content-tabs">
+        <div class="tab-pane active" id="shar-pei">
+        <h3>Shar Pei</h3>
+        <img class="puppy-pic" src="http://www.dogbreedinfo.com/images3/sharpei2DobramilFuChoufront.jpg">
+          <p>These unique dogs are regal, dignified, calm and confident. They are incredibly devoted to their families and are standoffish with strangers. They make excellent watch dogs and are protective of their home and loved ones. They need to be socialized early on or they can become aggressive. They generally do well with other pets, but some Shar Peis are dog-aggressive. However, they usually do well with children. They can often be stubborn. They are remarkably easy to housetrain and some of them start asking to go outside as early as eight weeks old. Shar Peis bond quickly with their new family and they thrive on attention and interaction. They need daily exercise but care should be taken that they don't spend too much time in the sun, as they can overheat. They do snore and snort, and get slobbery after they eat. But this rarely matters to Shar Pei parents, as the dogs are so affectionate and devoted, the slobber becomes a small price to pay.
+          </p>
+        </div>
+        <div class="tab-pane" id="chow-chow">
+          <img class="puppy-pic"    src="http://cdn-0.justdogbreeds.com/images/breeds/chow-chow.jpg" />
+          <h3> Chow Chow </h3>
+          <p>One of the oldest breeds in the world, the Chow Chow is a fiercely loyal dog who is reserved with his affection. While cuddly little powder puffs as puppies, they often end up developing difficult behaviors at 5-8 months old. They can be food aggressive, aggressively protective of their owners and territory, and they can exhibit irritable aggression. These traits were bred into them, and it is imperative that a Chow owner starts obedience training when the Chow is very young, so that the owner can control these behaviors. The Chow is independent, stubborn, and pushy and his owner will have to earn his respect early. He is highly intelligent, so will learn from obedience training, but still may choose not to be obedient. They are not exactly eager to please. They make great watchdogs as they are naturally territorial. They are protective of their owners and their children and they only bark for a reason. They are reserved with strangers and families will need to make their visitors aware that Chows can be fierce if a stranger approaches "his" property. They do well with children if they are brought up with them, and if the children know how to behave around a Chow. They also have poor peripheral vision, so one must take care approaching them from behind or from the side. This could startle them and cause them to be defensive. Chows only need minimal to moderate amounts of exercise. They like to go for walks. They are not big on rain. They also don't like to play fetch. They need to be kept on a leash or in a fenced-in area as they have no road-sense, and they will chase and potentially kill sheep, squirrels, cats, and anything else they see as prey. They also don't do well with same-sex dogs and can be very aggressive with them. However, they are usually quiet, exceptionally fast at housetraining, not prone to digging, and seem to have no interest in destroying furniture. (They are a little too high-brow for that.) They seem to have an innate dignity that they work to preserve. Some Chows breathe heavily and stress easily during heat, exercise and excitement. They will need access to water and protection from the sun and heat at all times. In short, these black-tongued, lion-like dogs make devoted companions, but don't mistake them for a lapdog. And be sure you are ready for a dog that wants to have his say.
+            <p>
+        </div>
+        <div class="tab-pane" id="whippet">
+          <h3>Whippet</h3>
+          <img class="puppy-pic" src="http://cdn-2.justdogbreeds.com/images/breeds/whippet.jpg">
+          <p>
+            This sleek and speedy sight hound makes an excellent family pet. They are gentle, affectionate, friendly, and easygoing. As puppies they can be a bit mischievous, and are prone to chewing and counter-surfing, but by the age of two, and sometimes sooner, the Whippet has usually settled down and settled in. They love to curl up beside you on the couch and sleep with you in your bed, under the covers. They are people-dogs and want to be with their family. If you go to the store, expect an exuberant welcome home ten minutes later. He might even try to knock you over. Whippets need regular exercise, and they like to run. It is important to keep them safe on lead or in a fenced-in area as they are fast and impossible to catch and they can see for miles. They will chase anything that moves: cats, squirrels, plastic bags. And they are not road smart. They generally do well with other dogs, and they seem to have an affinity for children. Of course, it is important that the children know how to treat a dog. They do not make very efficient watchdogs. They are trusting and unsuspicious by nature, and they may or may not bark at a burglar. In general, they are a very quiet breed. They are highly intelligent and trainable and have excelled in obedience, flyball, agility, rally, lure coursing, and straight racing -- basically anything you ask him to do, he'll do, as they are eager to please. They will want to go for a daily walk, no matter what the weather, and no matter whether or not you want to. They are lively and alert, but not high-strung. They are easy to housebreak and will usually follow you to the bathroom to make sure you've got it mastered too. They are funny, clever, playful, sensitive and always in love with their families. They need human companionship and do not do well if left alone. They truly want to be by your side at all times, unless of course, they are leaving you to chase a Frisbee, or a ball, or a cat.
+            </p>
+        </div>
+      </div>
+    
+    <script>
+      $(function() {
+        $('.tabs').tabs();
+      })
+    </script>
+  </body>
+</html>

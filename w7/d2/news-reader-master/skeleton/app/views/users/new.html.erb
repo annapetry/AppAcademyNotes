@@ -1,0 +1,9 @@
+<h2>Sign Up</h2>
+
+<%= 
+  render "layouts/form",
+  user: @user,
+  action: "users_url",
+  method: "POST",
+  button: "Sign Up"
+%>
